@@ -11,3 +11,5 @@
 *.zip
 *.docx
 *.xls
+.RDataTmp
+.DS_Store

@@ -1,0 +1,1 @@
+Code for the analysis of the World Values Survey's questions on science

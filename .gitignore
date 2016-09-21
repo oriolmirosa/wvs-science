@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rda
+*.dta
+*.RData
+*.rdata
+*.inp
+*.out
+*.zip
+*.docx
+*.xls

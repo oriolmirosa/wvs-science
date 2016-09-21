@@ -1,0 +1,217 @@
+1-level EFA (2 factors)
+
+           GEOMIN ROTATED LOADINGS (* significant at 5% level)
+                  1             2
+              ________      ________
+ SCIBETLI       0.833*        0.009*
+ SCINEXTG       0.786*       -0.011*
+ SCICHANG      -0.441*        0.453*
+ SCINOTEN      -0.065*        0.582*
+ SCIBETOF       0.425*        0.157*
+ SCIRIGHT       0.010*        0.708*
+ SCIIMPOR       0.087*        0.402*
+
+
+
+1-level EFA (3 factors, Bayes estimator - it wouldn't run otherwise)
+
+          GEOMIN ROTATED LOADINGS (* significant at 5% level)
+                   1                 2                 3
+              __________        __________        __________
+ SCIBETLI        0.828*           -0.012*           -0.001
+ SCINEXTG        0.776*           -0.018*           -0.016*
+ SCICHANG       -0.010             0.975*            0.004*
+ SCINOTEN       -0.012            -0.024             0.606*
+ SCIBETOF        0.469*            0.071*            0.105*
+ SCIRIGHT        0.095             0.014             0.702*
+ SCIIMPOR       -0.004            -0.357*            0.571*
+
+
+
+2-level EFA
+
+           GEOMIN ROTATED LOADINGS (* significant at 5% level)
+                  1             2
+              ________      ________
+ SCIBETLI       0.822*        0.010*
+ SCINEXTG       0.775*       -0.018*
+ SCICHANG      -0.360*        0.491*
+ SCINOTEN      -0.068*        0.544*
+ SCIBETOF       0.410*        0.116*
+ SCIRIGHT       0.012*        0.704*
+ SCIIMPOR       0.078*        0.351*
+
+
+
+ 1-level CFA
+
+ RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.089
+          90 Percent C.I.                    0.088  0.091
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                0.914
+          TLI                                0.851
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ POSW     BY
+    SCIBETLIFE         0.834      0.003    270.253      0.000
+    SCINEXTGEN         0.787      0.003    259.490      0.000
+    SCIBETOFF          0.421      0.003    141.193      0.000
+
+ NEGW     BY
+    SCICHANGEF         0.898      0.022     41.473      0.000
+    SCINOTENFA         0.423      0.008     51.291      0.000
+    SCIRIGHTWR         0.798      0.009     86.268      0.000
+    SCIIMPORTA         0.357      0.006     60.507      0.000
+
+
+
+2-level CFA with scichangef only on the negative factor
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.023
+
+CFI/TLI
+
+          CFI                                0.683
+          TLI                                0.608
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+ POSW     BY
+    SCIBETLIFE         0.821      0.012     68.906      0.000
+    SCINEXTGEN         0.777      0.013     59.053      0.000
+    SCIBETOFF          0.402      0.025     16.141      0.000
+
+ NEGW     BY
+    SCICHANGEF         0.798      0.141      5.659      0.000
+    SCINOTENFA         0.445      0.066      6.760      0.000
+    SCIRIGHTWR         0.759      0.037     20.355      0.000
+    SCIIMPORTA         0.321      0.026     12.315      0.000
+
+
+
+2-level CFA with scichangef in both the positive and the negative factors
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.013
+
+CFI/TLI
+
+          CFI                                0.898
+          TLI                                0.871
+
+ POSW     BY
+    SCIBETLIFE         0.822      0.011     77.985      0.000
+    SCINEXTGEN         0.776      0.014     56.269      0.000
+    SCIBETOFF          0.402      0.025     16.339      0.000
+    SCICHANGEF        -0.334      0.044     -7.633      0.000
+
+ NEGW     BY
+    SCICHANGEF         0.484      0.052      9.292      0.000
+    SCINOTENFA         0.562      0.019     29.573      0.000
+    SCIRIGHTWR         0.687      0.031     22.339      0.000
+    SCIIMPORTA         0.346      0.020     17.587      0.000
+
+
+
+I couldn't get the 2-level CFA with three factors to run
+
+
+
+2-level CFA with both within and between with scichangef only on the negative factor
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.023
+
+CFI/TLI
+
+          CFI                                0.741
+          TLI                                0.581
+
+Within Level
+
+ POSW     BY
+    SCIBETLIFE         0.821      0.012     68.903      0.000
+    SCINEXTGEN         0.777      0.013     59.047      0.000
+    SCIBETOFF          0.402      0.025     16.140      0.000
+
+ NEGW     BY
+    SCICHANGEF         0.797      0.141      5.656      0.000
+    SCINOTENFA         0.445      0.066      6.772      0.000
+    SCIRIGHTWR         0.759      0.037     20.459      0.000
+    SCIIMPORTA         0.322      0.026     12.360      0.000
+
+Between Level
+
+ POSB     BY
+    SCIBETLIFE         0.971      0.030     32.869      0.000
+    SCINEXTGEN         0.906      0.030     29.873      0.000
+    SCIBETOFF          0.680      0.082      8.271      0.000
+
+ NEGB     BY
+    SCICHANGEF         0.354      0.147      2.412      0.016
+    SCINOTENFA         0.798      0.075     10.711      0.000
+    SCIRIGHTWR         0.776      0.106      7.334      0.000
+    SCIIMPORTA         0.779      0.075     10.427      0.000
+
+
+
+
+2-level CFA with both within and between with scichangef in both the positive and the negative factors
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.013
+
+CFI/TLI
+
+          CFI                                0.929
+          TLI                                0.875
+
+Within Level
+
+ POSW     BY
+    SCIBETLIFE         0.822      0.011     77.977      0.000
+    SCINEXTGEN         0.776      0.014     56.263      0.000
+    SCIBETOFF          0.402      0.025     16.339      0.000
+    SCICHANGEF        -0.334      0.044     -7.630      0.000
+
+ NEGW     BY
+    SCICHANGEF         0.484      0.052      9.289      0.000
+    SCINOTENFA         0.562      0.019     29.564      0.000
+    SCIRIGHTWR         0.687      0.031     22.343      0.000
+    SCIIMPORTA         0.346      0.020     17.591      0.000
+
+Between Level
+
+ POSB     BY
+    SCIBETLIFE         0.983      0.028     34.603      0.000
+    SCINEXTGEN         0.897      0.037     23.983      0.000
+    SCIBETOFF          0.666      0.078      8.555      0.000
+    SCICHANGEF        -0.791      0.095     -8.359      0.000
+
+ NEGB     BY
+    SCICHANGEF         0.438      0.131      3.333      0.001
+    SCINOTENFA         0.782      0.088      8.855      0.000
+    SCIRIGHTWR         0.794      0.115      6.904      0.000
+    SCIIMPORTA         0.763      0.085      9.017      0.000
+
+
+
+Again, this doesn't run with 3 factors
+
+
+

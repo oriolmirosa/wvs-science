@@ -1,0 +1,114 @@
+country,year,gdp,gdpyear,gdpsource,governance,govyear,govsource,gini,giniyear,ginisource
+Algeria,2013,,,,,,,,,
+Andorra,2005,,,,,,,,,
+Argentina,2006,,,,,,,,,
+Argentina,2013,,,,,,,,,
+Armenia,2011,,,,,,,,,
+Australia,2005,38818.84,2005,WDI,95.12,2005,WGI,0.3563,2008,WDI
+Australia,2012,42540.97,2012,WDI,94.26,2012,WGI,0.326,2012,OECD
+Azerbaijan,2011,,,,,,,,,
+Bahrain,2014,,,,,,,,,
+Belarus,2011,,,,,,,,,
+Brazil,2006,12560.79,2006,WDI,46.34,2006,WGI,0.5593,2006,WDI
+Brazil,2014,15109.83,2014,WDI,47.12,2014,WGI,0.5287,2013,WDI
+Bulgaria,2005,,,,,,,,,
+Burkina Faso,2007,,,,,,,,,
+Canada,2006,41011.96,2006,WDI,97.56,2006,WGI,0.317,2006,OECD
+Chile,2006,17796.77,2006,WDI,83.41,2006,WGI,0.5179,2006,WDI
+Chile,2011,20266.04,2011,WDI,85.78,2011,WGI,0.5084,2011,WDI
+China,2007,,,,,,,,,
+China,2012,,,,,,,,,
+Colombia,2005,,,,,,,,,
+Colombia,2012,,,,,,,,,
+Cyprus,2006,,,,,,,,,
+Cyprus,2011,,,,,,,,,
+Ecuador,2013,,,,,,,,,
+Egypt,2008,,,,,,,,,
+Egypt,2013,,,,,,,,,
+Estonia,2011,,,,,,,,,
+Ethiopia,2007,,,,,,,,,
+Finland,2005,38700.26,2005,WDI,100,2005,WGI,0.2764,2005,WDI
+Georgia,2009,,,,,,,,,
+Georgia,2014,,,,,,,,,
+Germany,2006,39371.84,2006,WDI,92.2,2006,WGI,0.3278,2006,WDI
+Germany,2013,43045.6,2013,WDI,91.39,2013,WGI,0.289,2012,OECD
+Ghana,2007,,,,,,,,,
+Ghana,2012,,,,,,,,,
+Hong Kong,2005,,,,,,,,,
+Hong Kong,2013,51655.85,2013,WDI,95.69,2013,WGI,,,
+Hong Kong,2013,,,,,,,,,
+Hungary,2009,,,,,,,,,
+India,2006,,,,,,,,,
+India,2012,,,,,,,,,
+India,2014,,,,,,,,,
+Indonesia,2006,,,,,,,,,
+Iraq,2006,,,,,,,,,
+Iraq,2012,,,,,,,,,
+Italy,2005,37129.79,2005,WDI,69.76,2005,WGI,0.3407,2005,WDI
+Japan,2005,33915.55,2005,WDI,88.78,2005,WGI,0.3211,2008,WDI
+Japan,2010,34403.84,2010,WDI,90.43,2010,WGI,0.3211,2008,WDI
+Jordan,2007,,,,,,,,,
+Jordan,2014,,,,,,,,,
+Kazakhstan,2011,,,,,,,,,
+Kuwait,2014,,,,,,,,,
+Kyrgyzstan,2011,,,,,,,,,
+Lebanon,2013,,,,,,,,,
+Libya,2014,,,,,,,,,
+Malaysia,2006,,,,,,,,,
+Malaysia,2012,,,,,,,,,
+Mali,2007,,,,,,,,,
+Mexico,2005,,,,,,,,,
+Mexico,2012,,,,,,,,,
+Moldova,2006,,,,,,,,,
+Morocco,2007,,,,,,,,,
+Morocco,2011,,,,,,,,,
+Netherlands,2012,45728.42,2012,WDI,96.65,2012,WGI,0.2799,2012,WDI
+New Zealand,2011,32283.03,2011,WDI,98.1,2011,WGI,0.323,2011,OECD
+Nigeria,2011,,,,,,,,,
+Norway,2007,65780.91,2007,WDI,99.03,2007,WGI,0.2807,2007,WDI
+Pakistan,2012,,,,,,,,,
+Palestine,2013,,,,,,,,,
+Peru,2006,,,,,,,,,
+Peru,2012,,,,,,,,,
+Philippines,2012,,,,,,,,,
+Poland,2005,,,,,,,,,
+Poland,2012,,,,,,,,,
+Qatar,2010,,,,,,,,,
+Romania,2005,,,,,,,,,
+Romania,2012,,,,,,,,,
+Russia,2006,,,,,,,,,
+Russia,2011,,,,,,,,,
+Rwanda,2007,,,,,,,,,
+Rwanda,2012,,,,,,,,,
+Serbia and Montenegro,2005,,,,,,,,,
+Singapore,2012,75630.36,2012,WDI,99.52,2012,WGI,,,
+Slovenia,2005,,,,,,,,,
+Slovenia,2011,,,,,,,,,
+South Africa,2006,,,,,,,,,
+South Africa,2013,,,,,,,,,
+South Korea,2005,25541.46,2005,WDI,82.44,2005,WGI,0.307,2012,OECD
+South Korea,2010,30440.4,2010,WDI,84.69,2010,WGI,0.307,2012,OECD
+Spain,2007,34825.21,2007,WDI,82.04,2007,WGI,0.3386,2007,WDI
+Spain,2011,32530.09,2011,WDI,81.52,2011,WGI,0.361,2011,WDI
+Sweden,2006,42873.04,2006,WDI,96.1,2006,WGI,0.2647,2006,WDI
+Sweden,2011,43709.21,2011,WDI,98.58,2011,WGI,0.2724,2011,WDI
+Taiwan,2006,,,,84.88,2006,WGI,,,
+Taiwan,2012,,,,83.73,2012,WGI,,,
+Thailand,2007,,,,,,,,,
+Thailand,2013,,,,,,,,,
+Trinidad and Tobago,2006,,,,,,,,,
+Trinidad and Tobago,2011,,,,,,,,,
+Tunisia,2013,,,,,,,,,
+Turkey,2007,,,,,,,,,
+Turkey,2011,,,,,,,,,
+Ukraine,2006,,,,,,,,,
+Ukraine,2011,,,,,,,,,
+United States,2006,50598.95,2006,WDI,91.71,2006,WGI,0.4175,2007,WDI
+United States,2011,49781.36,2011,WDI,91,2011,WGI,0.4046,2010,WDI
+Uruguay,2006,,,,,,,,,
+Uruguay,2011,,,,,,,,,
+Uzbekistan,2011,,,,,,,,,
+Vietnam,2006,,,,,,,,,
+Yemen,2014,,,,,,,,,
+Zambia,2007,,,,,,,,,
+Zimbabwe,2012,,,,,,,,,

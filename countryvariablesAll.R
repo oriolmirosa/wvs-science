@@ -4,17 +4,28 @@ library(dplyr)
 
 ### Country-level variables
 
+#NOOOO
 # We start by reading from disk the 'countryvariables' data frame. It already
 # contains, from when I first created it, the columns for indicators for gdp per
 # capita, gini, and governance (and some of the data for them, some of it added
 # by hand because it was not readily accessible), but we need to add those for
 # political stability and polarization
+# NOOOO
+
+# Let's first load the wvsAll data set without the country variables, which we
+# will use to create our countryvariables data frame by extracting the all the
+# country-year combinations
 
 load("wvsAll-no.country.vars.Rda")
 
 countryvariables <- unique(wvsAll[,c('country', 'year')])
-rownames(countryvariables) <- NULL
-countryvariables <- arrange(countryvariables, country)
+rownames(countryvariables) <- NULL # reset rownames to consecutive numbers
+countryvariables <- arrange(countryvariables, country) # sort by country name
+
+# Add variable columns for all the indicators we want to include, as well as the
+# year of the data (we can't always find the data for the exact year of the
+# survey), and the source of the data. The variables are GDP, governance, 
+# gini coefficient, and political stability
 
 countryvariables$gdp <- NA
 countryvariables$gdpyear <- NA
@@ -39,9 +50,12 @@ countryvariables$lryear <- NA
 countryvariables$lrsource <- ""
 
 
-### Gdp per capita, from the World Bank's World Development Indicators (WDI)
+### GDP per capita, from the World Bank's World Development Indicators (WDI)
 
 gdp = WDI(indicator = 'NY.GDP.PCAP.PP.KD', start = 2005, end = 2015)
+
+# Let's rename some countries so that we can match the downloaded GDP data to
+# the name of the countries in our data set
 
 gdp$country[gdp$country == "Russian Federation"] <- "Russia"
 gdp$country[gdp$country == "Korea, Rep."] <- "South Korea"
@@ -53,7 +67,7 @@ gdp$country[gdp$country == "Yemen, Rep."] <- "Yemen"
 
 # Let's add the GDP per capita information to countryvariables
 
-nodatagdp <- vector(mode = "character", 0)
+nodatagdp <- vector(mode = "character", 0) # For not-found countries
 
 for(row in 1:nrow(countryvariables)) {
   country <- countryvariables[row, 1]
@@ -86,7 +100,18 @@ for(row in 1:nrow(countryvariables)) {
   }
 }
 
-## Now we prepare the gini data, also from the World Bank's WDI
+# Countries not available in the WDIs for GDP:
+
+nodatagdp # Palestine and Taiwan (for both waves)
+
+# Countries without GDP data:
+
+countryvariables$country[is.na(countryvariables$gdp)]
+
+# Andorra, Palestine and Taiwan (for both waves)
+
+
+### GINI coefficient, also from the World Bank's WDI
 
 gini = WDI(indicator = 'SI.POV.GINI', start = 1990, end = 2015)
 
@@ -133,8 +158,20 @@ for(row in 1:nrow(countryvariables)) {
   }
 }
 
-## Now we prepare the data on government effectiveness, which comes from the
-# Worldwide Governance Indicators.
+# Countries not available in the WDIs for GINI:
+
+nodatagini # Palestine and Taiwan (for both waves)
+
+# Countries without GINI data:
+
+countryvariables$country[is.na(countryvariables$gini)]
+
+# Algeria, Andorra, Bahrain, Egypt, Hong Kong, Iraq, Jordan, Lebanon, Libya,
+# Palestine, South Korea (for both waves), Taiwan (for both waves), and Yemen
+
+
+## GOVERNANCE: Now we prepare the data on government effectiveness, which comes
+# from the Worldwide Governance Indicators.
 # http://info.worldbank.org/governance/wgi/index.aspx#home
 
 gov <- read.csv("governance.csv", na.strings = "#N/A")
@@ -175,12 +212,21 @@ for(row in 1:nrow(countryvariables)) {
   }
 }
 
-## Now we prepare the data on political stability, also from the Worldwide 
-# Governance Indicators.
+# Countries not available in the WGIs for governance:
+
+nodatagov # Palestine
+
+# Countries without governance data:
+
+countryvariables$country[is.na(countryvariables$governance)] # Palestine
+
+
+## POLITICAL STABILITY: Now we prepare the data on political stability, also
+# from the Worldwide Governance Indicators.
 
 polstab <- read.csv("politicalstability.csv", na.strings = "#N/A")
 
-polstab$country <- str_to_title(polstab$country)
+polstab$country <- str_to_title(polstab$country) # Change case to title
 
 polstab$country[polstab$country == "Russian Federation"] <- "Russia"
 polstab$country[polstab$country == "Korea, Rep."] <- "South Korea"
@@ -216,42 +262,124 @@ for(row in 1:nrow(countryvariables)) {
   }
 }
 
-## Now we get to the data on political polarization
+# Countries not available in the WDIs for POLITICAL STABILITY:
+
+nodatapol # Palestine
+
+# Countries without POLITICAL STABILITY data:
+
+countryvariables$country[is.na(countryvariables$polstab)] # Palestine
+
+
+
+## POLITICAL POLARIZATION: Now we get to the data on political polarization
 # This comes from the Manifesto Project, which looks at the party programs of
 # political parties to figure out their ideological position. Basically, here
 # I take the ideological score (-100 -left- to 100 - right) of the parties'
 # program for a given election year, weigh it by its popular support, and find
-# the mean for that election. Then I take the mean value and subtract it from
-# each party's value, square them, add them together, and do the square root.
+# the mean for that election (mleftright variable). Then I take that mean value and
+# subtract it from each party's value, square them, add them together, and do the square root.
 # Then I find the mean of that value for each party, which gives me the average
 # polarization, how much distance the parties are from each other (or the 
 # mean) for that election.
 # https://manifestoproject.wzb.eu/
 
-pol <- read.csv("MPDataset_MPDS2015a.csv", stringsAsFactors = FALSE)
+pol <- read.csv("MPDataset_MPDS2016a.csv", stringsAsFactors = FALSE)
 pol$edate <- as.Date(pol$edate, format = "%d/%m/%Y")
 
+# Remove all data from before 2005. We go from 3924 entries to 734
+
 pol <- pol[pol$edate >= "2005-01-01",]
+
+# Select only the variables we need for the analysis. From 169 to 5
+
 pol <- select(pol, countryname, edate, party, pervote, rile)
+
+# We now do the same for the South America dataset, which is a separate file
 
 polSA <- read.csv("MPDataset_MPDSSA2015a.csv", stringsAsFactors = FALSE)
 polSA$edate <- as.Date(polSA$edate, format = "%d/%m/%Y")
-
 polSA <- polSA[polSA$edate >= "2005-01-01",]
 polSA <- select(polSA, countryname, edate, party, pervote, rile)
 
+# We merge both datasets into one
 pol <- rbind(pol, polSA)
-pol <- arrange(pol, countryname, edate)
-rm(polSA)
+pol <- arrange(pol, countryname, edate) # Sort by country and election
+rm(polSA) # Remove the South America dataset
+
+# Let's see if there's any missing data in the dataset, since that could affect
+# the size of the final dataset that we will use for our analysis
+
+pol[is.na(pol$pervote),]
+pol[is.na(pol$rile),]
+
+# There are 7 cases in which the percentage of the vote is missing (Brazil and
+# Hungary) and 12 in which party ideology is missing. It makes most sense to
+# delete these entries
+
+pol <- pol[complete.cases(pol),]
+
+# Before we move on, let's check to see if the percentage of votes in each
+# election is close to 100%. If not, that could be problematic, since the
+# ideological score for the country at that point in time would be calculated
+# missing a lot of the votes, and therefore might be very inaccurate/biased
+
+percVotes <- pol %>% group_by(countryname, edate) %>% dplyr::summarise(totalPerc = sum(pervote))
+
+# Let's single out the cases in which the total percentage of the vote accounted
+# for in the dataset for each election is lower than 75%
+
+problemElections <- percVotes[percVotes$totalPerc < 75,]
+
+# There are 3 cases very close to 75% (Croatia 2007, Macedonia 2006 and South
+# Korea 2008). Since these are close, I will keep them here. However, if we
+# chose 85% instead of 75%, the number of cases climbs to 24, so we might want
+# to think whether this is what we want to do
+
+# The other three cases below 75% are for Argentina 2013, where the three are
+# set on consecutive days (10/27, 28 & 29). We could just count them as part of
+# the same election, but even then they would just add up to 54% of the vote,
+# so it makes sense to remove them
+
+pol <- pol[!(pol$countryname == 'Argentina' & as.numeric(format(pol$edate,'%Y')) > 2012),]
+
+# 'pol' now has a row for the percentage of votes that each party got in each
+# election for each country, as well as the ideological score for that party
+# at that point in time (based on their program, which can be found in the rile
+# variable with a score between -100 for extreme left, and 100 for extreme
+# right). We need to do some magic to find the average ideological score for
+# the country at each election, which we get by taking the rows for each
+# election/country, and summarizing them into one row that calculates the mean
+# of the ideological score weighted by the percentage of the vote
+
+# I first create a dataset that contains that data frame for each
+# country/election combination
 
 meanlr <- pol %>% group_by(countryname, edate) %>% dplyr::summarise(meanlr = sum(rile*pervote/100, na.rm = TRUE))
 
+# And now I add a column to the 'pol' data frame with the corresponding matching
+# data. The value will be repeated for each row that refers to a
+# country/election (there's a line for each party). We do this (instead of just
+# using the meanlr data frame or collapsing all the entries for a given
+# country/election into one) so that we can add more variables that distinguish
+# between right and left parties
+
 pol$meanlr <- meanlr$meanlr[match(interaction(pol$countryname, pol$edate), interaction(meanlr$countryname, meanlr$edate))]
+
+# The problem with the mean ideological score for each country is that we lose
+# the information on how much political polarization there in the country's
+# political system. In order to keep some of that information, we will first
+# create two variables that capture the average ideological score for each
+# country/election only for parties on the right (mright) and only for parties
+# on the left (mleft).
 
 pol$left <- ifelse(pol$rile < 0, pol$rile, 0)
 pol$left <- -pol$left
 
 pol$right <- ifelse(pol$rile > 0, pol$rile, 0)
+
+### THINK ABOUT: Should I use the percentage of total vote, or should I
+# transform this to be the percentage of all votes on the left & right?
 
 mleft <- pol%>% group_by(countryname, edate) %>% dplyr::summarise(mleft = sum(left*pervote/100, na.rm = TRUE))
 
@@ -260,6 +388,8 @@ pol$mleft <- mleft$mleft[match(interaction(pol$countryname, pol$edate), interact
 mright <- pol%>% group_by(countryname, edate) %>% dplyr::summarise(mright = sum(right*pervote/100, na.rm = TRUE))
 
 pol$mright <- mright$mright[match(interaction(pol$countryname, pol$edate), interaction(mright$countryname, mright$edate))]
+
+
 
 mleftright <- pol %>% group_by(countryname, edate) %>% dplyr::summarise(mleftright = max(meanlr), mleft = max(mleft), mright = max(mright))
 

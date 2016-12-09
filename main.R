@@ -110,11 +110,18 @@ wvs6$sciimportant <- mapvalues(wvs6$sciimportant, c(1,2,3,4,5,6,7,8,9,10),
 
 wvs6$wave <- "six"
 
+# Let's first remove the country codes data so that we are just left with the
+# two main data sets for each wave
+
+rm(cc)
+
 ## Now that we have the main data sets, we will create different data sets for
 # different numbers of countries. For each of them we will calculate the science
 # factors, mean values of variables and introduce them as country indicators, 
 # as well as standardize the variables, and do multiple imputation for the
 # missing values, at least for incdecile
+
+# ALL COUNTRIES
 
 # We start by using as many countries as possible. For this, we will get rid of
 # the countries that do not have any values on the science questions
@@ -130,6 +137,99 @@ length(c5.1)
 
 c6.1 <- unique(wvs6.sci$country)
 length(c6.1)
+
+# Here we have 47 countries in wave 5 and 60 in wave 6.
+
+# We will now filter the data further to make sure that we do not have missing
+# information, and we will check how many (and which) countries we lose from
+# this
+
+wvs5.all.no.na <- filter(wvs5.sci, !is.na(female) & !is.na(age) & !is.na(incdecile) & !is.na(religious) & !is.na(education) & !is.na(leftright) & !is.na(postmater) & !is.na(control) & !is.na(trust))
+
+wvs6.all.no.na <- filter(wvs6.sci, !is.na(female) & !is.na(age) & !is.na(incdecile) & !is.na(religious) & !is.na(education) & !is.na(leftright) & !is.na(postmater) & !is.na(control) & !is.na(trust))
+
+c5.2 <- unique(wvs5.all.no.na$country)
+length(c5.2)
+
+c6.2 <- unique(wvs6.all.no.na$country)
+length(c6.2)
+
+setdiff(c5.1, c5.2)
+setdiff(c6.1, c6.2)
+
+# We are now left with 43 countries in wave 5 (we lost Colombia, China, India,
+# and Malaysia), and 53 in wave 6 (we lost China, Egypt, Jordan, Kuwait, New
+# Zealand, Qatar, and Singapore)
+
+# Now we join the waves together
+
+wvsAll <- rbind.fill(wvs5.all.no.na, wvs6.all.no.na)
+
+# And we make the wave variable a factor
+
+wvsAll$wave <- as.factor(wvsAll$wave)
+
+# Let's save this data set so that we can use it in the countryvariables.R
+# script to create the countryindicators data frame
+
+save(wvsAll, file = "wvsAll-no.country.vars.Rda")
+
+# Before we move forward, we load the countryindicators that were put together
+# in the countryvariables.R script
+
+load("countryindicators2.Rda")
+wvsOECD <- left_join(wvsOECD, countryindicators2, by = c("country", "year"))
+
+wvsOECD$age <- scale(wvsOECD$age)
+wvsOECD$incdecile <- scale(wvsOECD$incdecile)
+wvsOECD$education <- scale(wvsOECD$education)
+wvsOECD$leftright <- scale(wvsOECD$leftright)
+wvsOECD$religserv <- scale(wvsOECD$religserv)
+wvsOECD$postmater <- scale(wvsOECD$postmater)
+wvsOECD$control <- scale(wvsOECD$control)
+wvsOECD$trust <- scale(wvsOECD$trust)
+wvsOECD$gdp <- scale(wvsOECD$gdp)
+wvsOECD$gini <- scale(wvsOECD$gini)
+wvsOECD$governance <- scale(wvsOECD$governance)
+wvsOECD$polstab <- scale(wvsOECD$polstab)
+wvsOECD$mleftright <- scale(wvsOECD$mleftright)
+wvsOECD$mleft <- scale(wvsOECD$mleft)
+wvsOECD$mright <- scale(wvsOECD$mright)
+
+wvsOECD$age2 <- wvsOECD$age * wvsOECD$age
+wvsOECD$leftright2 <- wvsOECD$leftright * wvsOECD$leftright
+
+means <- wvsOECD %>% group_by(country) %>% dplyr::summarise(mleftright = mean(leftright, na.rm = TRUE), meducation = mean(education, na.rm = TRUE), mpostmater = mean(postmater, na.rm = TRUE), mcontrol = mean(control, na.rm = TRUE), mtrust = mean(trust, na.rm = TRUE))
+
+countries <- unique(wvsOECD$country)
+
+religideo <- sapply(countries, function(x) cor(wvsOECD$religserv[wvsOECD$country == x], wvsOECD$leftright[wvsOECD$country == x], use = "complete.obs"))
+
+religideo <- as.data.frame(religideo)
+
+religideo$country <- rownames(religideo)
+
+wvsOECD$meanleftright <- means$mleftright[match(wvsOECD$country, means$country)]
+wvsOECD$meaneducation <- means$meducation[match(wvsOECD$country, means$country)]
+wvsOECD$meanpostmater <- means$mpostmater[match(wvsOECD$country, means$country)]
+wvsOECD$meancontrol <- means$mcontrol[match(wvsOECD$country, means$country)]
+wvsOECD$meantrust <- means$mtrust[match(wvsOECD$country, means$country)]
+wvsOECD$religideo <- religideo$religideo[match(wvsOECD$country, religideo$country)]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Here we have 47 countries in wave 5 and 60 in wave 6. Let's now keep only the
 # OECD countries
@@ -211,7 +311,6 @@ wvsOECD$meanpostmater <- means$mpostmater[match(wvsOECD$country, means$country)]
 wvsOECD$meancontrol <- means$mcontrol[match(wvsOECD$country, means$country)]
 wvsOECD$meantrust <- means$mtrust[match(wvsOECD$country, means$country)]
 wvsOECD$religideo <- religideo$religideo[match(wvsOECD$country, religideo$country)]
-
 
 
 
